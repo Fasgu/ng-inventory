@@ -1,0 +1,45 @@
+<!-- <div class="row">
+    <div class="col">
+        <h5 class="mb-2 text-titlecase mb-4">Productos</h5>
+    </div>
+</div> -->
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Nuevo producto</h4>
+                <div *ngIf="validation_errors.length > 0" class="alert alert-warning" role="alert">
+                    <ul>
+                        <li *ngFor="let validation_error of validation_errors">
+                            <strong> {{validation_error.field_description}}</strong> {{validation_error.message}}
+                        </li>
+                    </ul>
+                </div>
+                <form class="forms-sample" #itemForm="ngForm" (ngSubmit)="saveItem(itemForm.value)">
+                    <div class="form-group">
+                        <label for="code">Codigo</label>
+                        <input type="text" name="code" id="code" class="form-control" ngModel>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Nombre</label>
+                        <input type="text" name="name" id="name" class="form-control" ngModel>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Descripción</label>
+                        <textarea name="description" class="form-control" cols="30" rows="10" ngModel></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Precio compra</label>
+                        <input type="number" name="purchase_price" class="form-control" ngModel>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Precio venta</label>
+                        <input type="number" name="sale_price" class="form-control" ngModel>
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2">Guardar</button>
+                    <a class="btn btn-light" routerLink="/items">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
