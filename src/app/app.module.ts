@@ -30,7 +30,8 @@ import { ItemsNewComponent } from './items-new/items-new.component';
     RouterModule.forRoot([
       { path: '', component: DashboardComponent },
       { path: 'items', component: ItemsComponent },
-      { path: 'items/create', component: ItemsNewComponent }
+      { path: 'items/create', component: ItemsNewComponent },
+      { path: 'items/edit/:id', component: ItemsNewComponent }
     ])
   ],
   providers: [],

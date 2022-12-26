@@ -1,13 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
 import { Item } from '../models/item';
-
-class DataTablesResponse {
-  data: any[] = [];
-  draw: number = 1;
-  recordsFiltered: number = 0;
-  recordsTotal: number = 0;
-}
+import { Router } from '@angular/router';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'app-items',
@@ -17,38 +13,53 @@ class DataTablesResponse {
 
 export class ItemsComponent implements OnInit {
 
-  dtOptions: DataTables.Settings = {};
+  @ViewChild(DataTableDirective, {static: false})
+  dtElement!: DataTableDirective;
+
+  dtTrigger: Subject<any> = new Subject<any>();
+
   items: Item[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) {}
+
+  dtOptions: DataTables.Settings = {};
 
   ngOnInit(): void {
-    const that = this;
-
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 2,
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json'
-      },
-      serverSide: true,
-      processing: true,
-      ajax: (dataTablesParameters: any, callback) => {
-        that.http
-          .get<DataTablesResponse>(
-            '/api/items/',
-            dataTablesParameters
-          ).subscribe((resp:any) => {
-            this.items = resp;
-
-            callback({
-              recordsTotal: 10,
-              recordsFiltered: 3,
-              data: []
-            });
-          });
-      },
-      columns: [{ data: 'id' }, { data: 'code' }, { data: 'name' }]
+      processing: true
     };
+
+    this.getItems()
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+      this.getItems()      
+    });
+  }
+
+  redirect() {
+    this.router.navigate(['/items/']);
+  }
+
+  getItems()  {
+    this.http.get<Item[]>(`/api/items/`).subscribe((result:any) => {
+        this.items = result
+        this.dtTrigger.next(result);
+      }
+    )
+  }
+
+  deleteItem(item_id: number) {
+    this.http.delete(`/api/items/${item_id}/`).subscribe(
+      result => {
+        this.rerender()
+      }
+    )
   }
 }
