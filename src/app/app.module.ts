@@ -12,6 +12,9 @@ import { ItemsComponent } from './items/items.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DataTablesModule } from 'angular-datatables';
 import { ItemsNewComponent } from './items-new/items-new.component';
+import { ItemsImportComponent } from './items-import/items-import.component';
+
+import { HotToastModule } from '@ngneat/hot-toast'
 
 @NgModule({
   declarations: [
@@ -19,7 +22,8 @@ import { ItemsNewComponent } from './items-new/items-new.component';
     SidebarComponent,
     DashboardComponent,
     ItemsComponent,
-    ItemsNewComponent
+    ItemsNewComponent,
+    ItemsImportComponent
   ],
   imports: [
     BrowserModule,
@@ -27,10 +31,16 @@ import { ItemsNewComponent } from './items-new/items-new.component';
     AppRoutingModule,
     HttpClientModule,
     DataTablesModule,
+    HotToastModule.forRoot({
+      position: 'top-right'
+      // theme: 'snackbar'
+    })
+    ,
     RouterModule.forRoot([
       { path: '', component: DashboardComponent },
       { path: 'items', component: ItemsComponent },
       { path: 'items/create', component: ItemsNewComponent },
+      { path: 'items/import', component: ItemsImportComponent },
       { path: 'items/edit/:id', component: ItemsNewComponent }
     ])
   ],
