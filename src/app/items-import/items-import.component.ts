@@ -43,11 +43,8 @@ export class ItemsImportComponent implements OnInit {
 
     fileReader.onload = (e) => {
       var workBook = XLSX.read(fileReader.result, {type: 'binary'});
-      console.log(workBook)
       var sheetNames = workBook.SheetNames;
-      console.log(sheetNames)
       this.excelData = XLSX.utils.sheet_to_json(workBook.Sheets[sheetNames[0]])
-      console.log(this.excelData)
     }
 
     this.dtTrigger2.next(this.excelData);

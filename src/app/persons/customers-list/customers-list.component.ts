@@ -1,30 +1,30 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
-import { Item } from '../models/item';
 import { Router } from '@angular/router';
 import { DataTableDirective } from 'angular-datatables';
+import { Person } from '../../models/person';
 
 @Component({
-  selector: 'app-items',
-  templateUrl: './items.component.html',
-  styleUrls: ['./items.component.css']
+  selector: 'app-customers-list',
+  templateUrl: './customers-list.component.html',
+  styleUrls: ['./customers-list.component.css']
 })
 
-export class ItemsComponent implements OnInit {
+export class CustomersListComponent {
 
   @ViewChild(DataTableDirective, {static: false})
   dtElement!: DataTableDirective;
 
   dtTrigger: Subject<any> = new Subject<any>();
 
-  items: Item[] = [];
+  customers: Person[] = [];
 
   constructor(
     private http: HttpClient,
     private router: Router,
   ) {}
-
+  
   dtOptions: DataTables.Settings = {};
 
   ngOnInit(): void {
@@ -33,30 +33,25 @@ export class ItemsComponent implements OnInit {
       processing: true
     };
 
-    this.getItems()
+    this.getCustomers()
   }
 
   rerender(): void {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
-      this.getItems()      
+      this.getCustomers()      
     });
   }
 
-  redirect() {
-    this.router.navigate(['/items/']);
+  getCustomers()  {
+    this.http.get<Person[]>(`/api/persons/C/`).subscribe((result:any) => {
+      this.customers = result
+      this.dtTrigger.next(result);
+    })
   }
 
-  getItems()  {
-    this.http.get<Item[]>(`/api/items/`).subscribe((result:any) => {
-        this.items = result
-        this.dtTrigger.next(result);
-      }
-    )
-  }
-
-  deleteItem(item_id: number) {
-    this.http.delete(`/api/items/${item_id}/`).subscribe(
+  deleteCustomer(item_id: number) {
+    this.http.delete(`/api/persons/${item_id}/`).subscribe(
       result => {
         this.rerender()
       }

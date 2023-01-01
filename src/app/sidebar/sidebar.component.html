@@ -1,7 +1,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
-        <li class="nav-item">
-            <a class="nav-link" routerLink="" routerLinkActive="active">
+        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]={exact:true}>
+            <a class="nav-link" routerLink="" >
                 <i class="typcn typcn-device-desktop menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
@@ -22,8 +22,8 @@
                 </ul>
             </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" routerLink="items" routerLinkActive="active">
+        <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="items">
             <i class="typcn typcn-film menu-icon"></i>
             <span class="menu-title">Productos</span>
             </a>
@@ -40,10 +40,10 @@
             <span class="menu-title">Proveedores</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
-            <i class="typcn typcn-film menu-icon"></i>
-            <span class="menu-title">Clientes</span>
+        <li class="nav-item" routerLinkActive="active">
+            <a class="nav-link" routerLink="customers" >
+                <i class="typcn typcn-user-outline menu-icon"></i>
+                <span class="menu-title">Clientes</span>
             </a>
         </li>
     </ul>
