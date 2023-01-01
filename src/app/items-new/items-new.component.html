@@ -10,7 +10,7 @@
                 <h4 class="card-title">Nuevo producto</h4>
                 <div *ngIf="form_message != ''" class="alert alert-danger" role="alert">
                     {{form_message}}
-                </div>                
+                </div>
                 <div *ngIf="validation_errors.length > 0" class="alert alert-warning" role="alert">
                     <ul>
                         <li *ngFor="let validation_error of validation_errors">
