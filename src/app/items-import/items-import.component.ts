@@ -3,7 +3,6 @@ import * as XLSX from 'xlsx'
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import { HttpClient } from '@angular/common/http';
-import { HotToastService } from '@ngneat/hot-toast';
 import { ToastrService } from 'ngx-toastr'
 
 @Component({
@@ -28,7 +27,6 @@ export class ItemsImportComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.toast.success('Productos guardados correctamente');
     this.dtOptions2 = {
       pagingType: 'full_numbers',
       processing: true
