@@ -14,7 +14,9 @@ import { DataTablesModule } from 'angular-datatables';
 import { ItemsNewComponent } from './items-new/items-new.component';
 import { ItemsImportComponent } from './items-import/items-import.component';
 
-import { HotToastModule } from '@ngneat/hot-toast'
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -29,12 +31,10 @@ import { HotToastModule } from '@ngneat/hot-toast'
     BrowserModule,
     FormsModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     HttpClientModule,
-    DataTablesModule,
-    HotToastModule.forRoot({
-      position: 'top-right'
-      // theme: 'snackbar'
-    })
+    DataTablesModule
     ,
     RouterModule.forRoot([
       { path: '', component: DashboardComponent },
