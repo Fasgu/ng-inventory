@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 import { HttpClient } from '@angular/common/http';
 import { HotToastService } from '@ngneat/hot-toast';
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
   selector: 'app-items-import',
@@ -23,10 +24,11 @@ export class ItemsImportComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private toast: HotToastService
+    private toast: ToastrService
   ) {}
 
   ngOnInit(): void {
+    this.toast.success('Productos guardados correctamente');
     this.dtOptions2 = {
       pagingType: 'full_numbers',
       processing: true
